@@ -32,7 +32,9 @@ namespace EMAds.Ads
             // Fetch ads: either from the given VASTTagUri or from the standard configuration
             Task<string> adsTask = vastTagUri != null ? GetAdsAsync(vastTagUri) : GetAdsAsync(adConfig.publisherId, adConfig.channelId, adConfig.storeUrl, adConfig.packageName);
 
+
             string result = await adsTask;
+            Debug.Log($"Ads response: {result}");
             if (result == null)
             {
                 Debug.LogError("Failed to load ads.");
@@ -71,7 +73,7 @@ namespace EMAds.Ads
             try
             {
                 HttpRequestMessage request;
-                if (!vastTagUri.Contains("country"))
+                if (!vastTagUri.Contains("height") || !vastTagUri.Contains("width"))
                 {
                     VastAdRequestDto dto = new VastAdRequestDto();
                     dto.app = new VastAdRequestDto.AppInfo

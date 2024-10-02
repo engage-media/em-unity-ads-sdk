@@ -39,6 +39,12 @@ namespace EMAds.Ads
                     vastAd.ClickThroughUrl = clickThroughNode.InnerText;
                 }
 
+                XmlNode vastAdTagNode = adNode.SelectSingleNode(".//VASTAdTagURI");
+                if (vastAdTagNode != null)
+                {
+                    vastAd.VastAdTagUrl = vastAdTagNode.InnerText;
+                }
+
                 ads.Add(vastAd);
             }
 

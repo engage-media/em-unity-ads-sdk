@@ -62,6 +62,8 @@ namespace EMAds.Ads
             query["vast_version"] = "3.0"; // Fixed VAST version
             query["channel"] = requestBody.app.channelId;  // Custom channel ID
             query["publisher"] = requestBody.app.publisherId;  // Custom publisher ID
+            query["channelId"] = requestBody.app.channelId;  // Custom channel ID
+            query["publisherId"] = requestBody.app.publisherId;  // Custom publisher ID
 
             uriBuilder.Query = query.ToString();
             Uri uri = uriBuilder.Uri;
