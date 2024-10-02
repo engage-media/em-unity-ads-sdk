@@ -30,7 +30,7 @@ namespace EMAds.Ads
             }
 
             // Fetch ads: either from the given VASTTagUri or from the standard configuration
-            Task<string> adsTask = vastTagUri != null ? GetAdsAsync(vastTagUri) : GetAdsAsync(adConfig.publisherId, adConfig.channelId, adConfig.storeUrl, adConfig.packageName);
+            Task<string> adsTask = vastTagUri != null ? GetAdsAsync(vastTagUri) : GetAdsAsync(adConfig.publisherId, adConfig.channelId, adConfig.storeUrl, adConfig.bundleId);
 
 
             string result = await adsTask;
@@ -81,7 +81,7 @@ namespace EMAds.Ads
                         channelId = adConfig.channelId,
                         publisherId = adConfig.publisherId,
                         storeUrl = adConfig.storeUrl,
-                        bundle = adConfig.packageName,
+                        bundle = adConfig.bundleId,
                         name = Application.productName
                     };
                     dto.imp = new VastAdRequestDto.Imp[] {

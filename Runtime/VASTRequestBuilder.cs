@@ -21,8 +21,17 @@ namespace EMAds.Ads
             query["device_id"] = deviceId;
             query["ua"] = userAgent;
             query["appName"] = requestBody.app.name;
-            query["appBundle"] = requestBody.app.bundle;
-            query["appURL"] = requestBody.app.storeUrl;
+            query["appBundle"] = requestBody.app.bundle ?? Application.identifier;
+            if (requestBody.app.storeUrl != null)
+            {
+                query["appURL"] = requestBody.app.storeUrl;
+            }
+            else
+            {
+                // get app bundle and create play store url
+                string appBundle = Application.identifier;
+                query["appURL"] = $"https://play.google.com/store/apps/details?id={appBundle}";
+            }
 
             // Screen dimensions
             query["width"] = Screen.width.ToString();
