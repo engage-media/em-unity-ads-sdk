@@ -9,7 +9,5 @@
         "email": "dor@engagemedia.tv",
         "url": "https://engagemedia.tv"
     },
-    "dependencies": {
-        "com.unity.videoplayer": "1.0.0"
-    }
+    "dependencies": {}
 }
