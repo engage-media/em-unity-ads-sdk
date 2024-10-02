@@ -67,6 +67,7 @@ namespace EMAds.Ads
         // Fetch ads via HTTP using a VAST URI
         private async Task<string> GetAdsAsync(string vastTagUri)
         {
+            Debug.Log($"Fetching ads from: {vastTagUri}");
             try
             {
                 HttpRequestMessage request;
@@ -114,8 +115,10 @@ namespace EMAds.Ads
                 {
                     request = new HttpRequestMessage(HttpMethod.Get, vastTagUri);
                 }
+                Debug.Log($"Request URI: {request.RequestUri}");
                 HttpResponseMessage response = await client.GetAsync(request.RequestUri);
                 response.EnsureSuccessStatusCode();
+                Debug.Log($"Response status code: {response.StatusCode}");
                 return await response.Content.ReadAsStringAsync();
             }
             catch (HttpRequestException e)
