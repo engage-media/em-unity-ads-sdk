@@ -1,0 +1,12 @@
+{
+    "name": "com.engagemedia.emadsunitysdk",
+    "version": "0.0.1",
+    "displayName": "EM Ads SDK System",
+    "description": "A system for managing ad breaks using VAST-compliant video ads in Unity served by Engage Media.",
+    "unity": "2020.3",
+    "author": {
+        "name": "Info",
+        "email": "dor@engagemedia.tv",
+        "url": "https://engagemedia.tv"
+    }
+}
