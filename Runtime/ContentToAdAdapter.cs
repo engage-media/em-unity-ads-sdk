@@ -66,6 +66,43 @@ namespace EMAds.Ads
         {
             try
             {
+                VastAdRequestDto dto = new VastAdRequestDto();
+                dto.app = new VastAdRequestDto.AppInfo
+                {
+                    channelId = adConfig.channelId,
+                    publisherId = adConfig.publisherId,
+                    storeUrl = adConfig.storeUrl,
+                    bundle = adConfig.packageName,
+                    name = Application.productName
+                };
+                dto.imp = new VastAdRequestDto.Imp[] {
+                new VastAdRequestDto.Imp{
+                    secure = true,
+                    video = new VastAdRequestDto.Video
+                    {
+                        w = Screen.width,
+                        h = Screen.height
+                    }
+                }};
+                dto.regs = new VastAdRequestDto.Regs
+                {
+                    gdpr = 0
+                };
+                dto.device = new VastAdRequestDto.DeviceInfo
+                {
+                    os = SystemInfo.operatingSystem,
+                    ifa = SystemInfo.deviceUniqueIdentifier,
+                    ext = new VastAdRequestDto.DeviceExt
+                    {
+                        ifaType = "IDFA"
+                    },
+                    model = SystemInfo.deviceModel,
+                    js = true,
+                    devicetype = 2,
+                    ip = ""
+                };
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, VASTRequestBuilder.BuildUrl(vastTagUri, dto));
                 HttpResponseMessage response = await client.GetAsync(vastTagUri);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsStringAsync();
@@ -82,7 +119,7 @@ namespace EMAds.Ads
         {
             string baseUrl = adConfig.isTestMode ? "https://s.adtelligent.com/demo" : "https://vast.engagemedia.com";
 
-            string url = $"{baseUrl}?publisherId={publisherId}&channelId={channelId}&storeUrl={storeUrl}&appBundle={packageName}&country={RegionInfo.CurrentRegion.TwoLetterISORegionName}";
+            string url = $"{baseUrl}?publisher={publisherId}&channel={channelId}&publisherId={publisherId}&channelId={channelId}&storeUrl={storeUrl}&appBundle={packageName}&country={RegionInfo.CurrentRegion.TwoLetterISORegionName}";
             return await GetAdsAsync(url);
         }
     }
