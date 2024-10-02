@@ -1,0 +1,17 @@
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+
+# Visual Studio / MonoDevelop generated files
+[Aa]ssets/**/*.csproj
+[Aa]ssets/**/*.unityproj
+[Aa]ssets/**/*.sln
+[Aa]ssets/**/*.suo
+[Aa]ssets/**/*.user
+[Aa]ssets/**/*.userprefs
+[Aa]ssets/**/*.pidb
+[Aa]ssets/**/*.booproj
