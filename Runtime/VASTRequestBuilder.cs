@@ -64,7 +64,9 @@ namespace EMAds.Ads
             query["publisher"] = requestBody.app.publisherId;  // Custom publisher ID
 
             uriBuilder.Query = query.ToString();
-            return uriBuilder.Uri;
+            Uri uri = uriBuilder.Uri;
+            Debug.Log($"VAST Request URL: {uri}");
+            return uri;
         }
 
         // Mock function to generate user-agent string

@@ -18,6 +18,9 @@ namespace EMAds.Ads
         // Load ads from the server using the configuration
         internal async void LoadAds(int retryCount = 0, string vastTagUri = null)
         {
+            Debug.Log("Loading ads...");
+            Debug.Log($"Retry count: {retryCount}");
+            Debug.Log(vastTagUri);
             // Check if we have reached the maximum number of retries
             if (retryCount > 5)
             {
@@ -66,16 +69,19 @@ namespace EMAds.Ads
         {
             try
             {
-                VastAdRequestDto dto = new VastAdRequestDto();
-                dto.app = new VastAdRequestDto.AppInfo
+                HttpRequestMessage request;
+                if (!vastTagUri.Contains("country"))
                 {
-                    channelId = adConfig.channelId,
-                    publisherId = adConfig.publisherId,
-                    storeUrl = adConfig.storeUrl,
-                    bundle = adConfig.packageName,
-                    name = Application.productName
-                };
-                dto.imp = new VastAdRequestDto.Imp[] {
+                    VastAdRequestDto dto = new VastAdRequestDto();
+                    dto.app = new VastAdRequestDto.AppInfo
+                    {
+                        channelId = adConfig.channelId,
+                        publisherId = adConfig.publisherId,
+                        storeUrl = adConfig.storeUrl,
+                        bundle = adConfig.packageName,
+                        name = Application.productName
+                    };
+                    dto.imp = new VastAdRequestDto.Imp[] {
                 new VastAdRequestDto.Imp{
                     secure = true,
                     video = new VastAdRequestDto.Video
@@ -84,25 +90,30 @@ namespace EMAds.Ads
                         h = Screen.height
                     }
                 }};
-                dto.regs = new VastAdRequestDto.Regs
-                {
-                    gdpr = 0
-                };
-                dto.device = new VastAdRequestDto.DeviceInfo
-                {
-                    os = SystemInfo.operatingSystem,
-                    ifa = SystemInfo.deviceUniqueIdentifier,
-                    ext = new VastAdRequestDto.DeviceExt
+                    dto.regs = new VastAdRequestDto.Regs
                     {
-                        ifaType = "IDFA"
-                    },
-                    model = SystemInfo.deviceModel,
-                    js = true,
-                    devicetype = 2,
-                    ip = ""
-                };
+                        gdpr = 0
+                    };
+                    dto.device = new VastAdRequestDto.DeviceInfo
+                    {
+                        os = SystemInfo.operatingSystem,
+                        ifa = SystemInfo.deviceUniqueIdentifier,
+                        ext = new VastAdRequestDto.DeviceExt
+                        {
+                            ifaType = "IDFA"
+                        },
+                        model = SystemInfo.deviceModel,
+                        js = true,
+                        devicetype = 2,
+                        ip = ""
+                    };
 
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, VASTRequestBuilder.BuildUrl(vastTagUri, dto));
+                    request = new HttpRequestMessage(HttpMethod.Get, VASTRequestBuilder.BuildUrl(vastTagUri, dto));
+                }
+                else
+                {
+                    request = new HttpRequestMessage(HttpMethod.Get, vastTagUri);
+                }
                 HttpResponseMessage response = await client.GetAsync(request.RequestUri);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsStringAsync();
