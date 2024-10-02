@@ -103,7 +103,7 @@ namespace EMAds.Ads
                 };
 
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, VASTRequestBuilder.BuildUrl(vastTagUri, dto));
-                HttpResponseMessage response = await client.GetAsync(vastTagUri);
+                HttpResponseMessage response = await client.GetAsync(request.RequestUri);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsStringAsync();
             }
