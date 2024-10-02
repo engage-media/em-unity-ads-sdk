@@ -117,7 +117,7 @@ namespace EMAds.Ads
         // Fetch ads via HTTP using publisher, channel, store, and package information
         private async Task<string> GetAdsAsync(string publisherId, string channelId, string storeUrl, string packageName)
         {
-            string baseUrl = adConfig.isTestMode ? "https://s.adtelligent.com/demo" : "https://vast.engagemedia.com";
+            string baseUrl = adConfig.isTestMode ? "https://s.adtelligent.com/demo" : "https://vast.engagemediatv.com";
 
             string url = $"{baseUrl}?publisher={publisherId}&channel={channelId}&publisherId={publisherId}&channelId={channelId}&storeUrl={storeUrl}&appBundle={packageName}&country={RegionInfo.CurrentRegion.TwoLetterISORegionName}";
             return await GetAdsAsync(url);
