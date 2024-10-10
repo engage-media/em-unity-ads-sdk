@@ -21,7 +21,7 @@ To install the package, follow these steps:
     ```json
     {
       "dependencies": {
-        "com.engage-media.ads-sdk": "https://github.com/engage-media/em-unity-ads-sdk.git#0.0.1"
+        "com.engage-media.ads-sdk": "https://github.com/engage-media/em-unity-ads-sdk.git#main"
       }
     }
     ```
