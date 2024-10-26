@@ -11,7 +11,13 @@ This package provides a VAST-compliant video ad system for Unity, allowing devel
 
 ## Installation
 
-## Installation
+### Requirements
+
+1. **Kotlin Version**: The project requires **Kotlin 1.9.0 or later**.
+2. **Java Version**: The project requires **Java 17**.
+3. **Gradle Plugin**: Ensure that the Gradle plugin in your project supports Kotlin 1.9.0 and Java 17.
+
+### Installation Steps
 
 To install the package, follow these steps:
 
