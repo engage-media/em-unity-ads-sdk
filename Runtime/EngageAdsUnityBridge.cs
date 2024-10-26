@@ -10,11 +10,15 @@ namespace EMAds.Ads
 
         void Start()
         {
-#if UNITY_ANDROID
+            // only start if android
+            if (Application.platform != RuntimePlatform.Android)
+            {
+                return;
+            }
+
             using AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-            engageAdsPlugin = new AndroidJavaObject("com.example.engageadsplugin.EMAdsPlugin");
-#endif
+            engageAdsPlugin = new AndroidJavaObject("com.engage.unityvideoplugin.EMAdsPlugin");
         }
 
         public void Initialize(AdSdkConfig config, IAdEventListener listener)
