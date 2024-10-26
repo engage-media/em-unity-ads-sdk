@@ -19,20 +19,21 @@ namespace EMAds.Ads
             this.adConfig = config;
             this.adSdkListener = listener;
 
-#if UNITY_ANDROID
-            isAndroid = true;
-            engageAdsBridge = gameObject.AddComponent<EngageAdsUnityBridge>();
-            engageAdsBridge.Initialize(config, listener);
-#else
-            isAndroid = false;
-            // Create and initialize AdBreakPlayer for non-Android platforms
-            adBreakPlayer = gameObject.AddComponent<AdBreakPlayer>();
-            adBreakPlayer.Initialize(this);
-            adBreakPlayer.videoPlayer = videoPlayer;
-
-            // Start loading ads for non-Android platforms
-            LoadAds();
-#endif
+            if (RuntimePlatform.Android == Application.platform)
+            {
+                isAndroid = true;
+                engageAdsBridge = gameObject.AddComponent<EngageAdsUnityBridge>();
+                engageAdsBridge.Initialize(config, listener);
+            }
+            else
+            {
+                isAndroid = false;
+                // Create and initialize AdBreakPlayer for non-Android platforms
+                adBreakPlayer = gameObject.AddComponent<AdBreakPlayer>();
+                adBreakPlayer.Initialize(this);
+                adBreakPlayer.videoPlayer = videoView;
+                LoadAds();
+            }
         }
 
         public void PlayNextAd()

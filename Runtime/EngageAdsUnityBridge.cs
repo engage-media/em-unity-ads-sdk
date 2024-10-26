@@ -28,22 +28,29 @@ namespace EMAds.Ads
             // get activity
             using AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            engageAdsPlugin ??= new AndroidJavaObject("com.engage.unityvideoplugin.EMAdsPlugin");
             engageAdsPlugin.Call("initialize", activity, configJson);
         }
 
         public void LoadAd()
         {
-#if UNITY_ANDROID
+            if (RuntimePlatform.Android != Application.platform)
+            {
+                return;
+            }
             engageAdsPlugin.Call("loadAd");
             listener.OnAdLoading(null);
-#endif
         }
 
         public void ShowAd()
         {
-#if UNITY_ANDROID
+
+            if (RuntimePlatform.Android != Application.platform)
+            {
+                return;
+            }
             engageAdsPlugin.Call("showAd");
-#endif
+
         }
 
         // Called from Android plugin
