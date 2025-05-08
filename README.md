@@ -6,7 +6,7 @@ This package provides a VAST-compliant video ad system for Unity, allowing devel
 - Loads and plays VAST-compliant video ads.
 - Supports test mode to load test ads.
 - Handles recursive `VASTAdTagUri` to fetch nested ads up to 5 times.
-- Provides a unified entry point (`AdSdkManager`) to manage ad lifecycle.
+- Provides a unified entry point (`EMAdsSdkManager`) to manage ad lifecycle.
 - Notifies developers of key ad events such as ad starts, completions, and errors.
 
 ## Installation
@@ -35,36 +35,37 @@ To install the package, follow these steps:
 3. Save the `manifest.json` file. Unity will automatically fetch and install the package from the specified GitHub repository.
 
 4. **Create Ad Configuration**:
-    - Right-click in your project and create a new `AdSdkConfig` asset: **Create > AdSdk > Configuration**.
-    - Fill in the fields with your ad configuration:
+    - Right-click in your project and create a new configuration asset via: **Create > AdSdk > Configuration**.
+    - This creates a scriptable object file named `EMAdSdkConfig`.
+    - **Note:** You will see a warning "No script asset for AdSdkConfig" - this is expected and won't affect functionality. The warning appears because the class name (`EMAdSdkConfig`) doesn't match the file name (`EMAdsConfig.cs`).
+    - Fill in the required fields:
         - `Publisher ID`
         - `Channel ID`
-        - `Base URL`
         - `Store URL`
-        - `Package Name`
+        - `Bundle ID`
         - `Is Test Mode`: Toggle this flag to enable test ads.
+        - `Is Autoplay`: Toggle this flag to enable automatic playback.
 
 ## Usage
 
-1. **Add `AdSdkManager`**:
-    - Create a new GameObject in your scene and attach the `AdSdkManager` component to it.
-    - Assign the `AdSdkConfig` and `VideoPlayer` in the Inspector.
-  
+1. **Add `EMAdsSdkManager`**:
+    - Create a new GameObject in your scene.
+    - Add the `EMAdsSdkManager` component to your GameObject.
+    - Assign the created `EMAdSdkConfig` asset and a `VideoPlayer` component in the Inspector.
+
 2. **Implement `IAdEventListener`**:
-    - Create a new script that implements the `IAdEventListener` interface to handle ad events.
-    - For example:
-  
+    [Keep existing IAdEventListener example, but update class name]
     ```csharp
     public class GameAdManagerScript : MonoBehaviour, IAdEventListener
     {
-        public AdSdkConfig adConfig;
+        public EMAdSdkConfig emAdSdkConfig;
         public VideoPlayer videoPlayer;
-        private AdSdkManager adSdkManager;
+        private EMAdsSdkManager emAdSdkManager; 
 
         void Start()
         {
-            adSdkManager = gameObject.AddComponent<AdSdkManager>();
-            adSdkManager.Initialize(adConfig, videoPlayer, this); // Initialize the ad system
+            emAdSdkManager = gameObject.AddComponent<EMAdsSdkManager>();
+            emAdSdkManager.Initialize(emAdSdkConfig, videoPlayer, this);
         }
 
         // Handle ad events
@@ -78,14 +79,14 @@ To install the package, follow these steps:
     ```
 
 3. **Test Mode**:
-    - Set the `isTestMode` flag in `AdSdkConfig` to `true` to use the test host for testing ads.
+    - Set the `isTestMode` flag in `EMAdSdkConfig` to `true` to use the test host for testing ads.
 
 ## API Reference
 
-### AdSdkManager
+### EMAdsSdkManager
 This is the main entry point for the ad system. It provides the following methods:
 
-- **Initialize(AdSdkConfig config, VideoPlayer videoView, IAdEventListener listener)**:
+- **Initialize(EMAdSdkConfig config, VideoPlayer videoView, IAdEventListener listener)**:
     Initializes the ad system with the provided configuration, `VideoPlayer`, and listener for event handling.
 
 ### IAdEventListener
@@ -101,6 +102,8 @@ This interface must be implemented to handle ad lifecycle events:
 ## Error Handling
 
 If an error occurs (such as failing to load ads or reaching the maximum recursion depth for `VASTAdTagUri`), the `OnAdError` method will be called with a description of the error.
+
+> **Important**: There's a class name mismatch in the SDK. The configuration class is named `EMAdSdkConfig` but appears as "AdSdkConfig" in the Unity Editor. This is a known issue but won't affect functionality.
 
 ## Limitations
 - A maximum of 5 recursive calls to `VASTAdTagUri` are supported.

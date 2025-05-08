@@ -21,7 +21,7 @@ namespace EMAds.Ads
             engageAdsPlugin = new AndroidJavaObject("com.engage.unityvideoplugin.EMAdsPlugin");
         }
 
-        public void Initialize(AdSdkConfig config, IAdEventListener listener)
+        public void Initialize(EMAdSdkConfig config, IAdEventListener listener)
         {
             this.listener = listener;
             string configJson = JsonUtility.ToJson(config);

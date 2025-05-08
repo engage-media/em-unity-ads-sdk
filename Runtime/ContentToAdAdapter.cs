@@ -11,7 +11,7 @@ namespace EMAds.Ads
     {
         public IAdEventListener adEventListener;
         public AdBreakPlayer adBreakPlayer;
-        public AdSdkConfig adConfig;
+        public EMAdSdkConfig adConfig;
 
         private static readonly HttpClient client = new HttpClient();
 

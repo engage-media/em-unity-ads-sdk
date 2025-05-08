@@ -7,14 +7,14 @@ namespace EMAds.Ads
     public class EMAdsSdkManager : MonoBehaviour, IAdEventListener
     {
         private AdBreakPlayer adBreakPlayer;
-        internal AdSdkConfig adConfig;
+        internal EMAdSdkConfig adConfig;
         private IAdEventListener adSdkListener;
 
         private EngageAdsUnityBridge engageAdsBridge;
         private bool isAndroid;
 
         // Entry point to initialize the SDK with config, video player, and listener
-        public void Initialize(AdSdkConfig config, VideoPlayer videoView, IAdEventListener listener)
+        public void Initialize(EMAdSdkConfig config, VideoPlayer videoView, IAdEventListener listener)
         {
             this.adConfig = config;
             this.adSdkListener = listener;

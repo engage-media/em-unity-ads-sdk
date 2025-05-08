@@ -13,7 +13,7 @@ namespace EMAds.Ads
         private VASTAd nextAd;
         private AudioSource audioSource;
 
-        // Initialize with reference to the AdSdkManager
+        // Initialize with reference to the EMAdsSdkManager
         internal void Initialize(EMAdsSdkManager manager)
         {
             sdkManager = manager;

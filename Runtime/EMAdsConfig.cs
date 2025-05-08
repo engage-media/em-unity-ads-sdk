@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace EMAds.Ads
 {
-    [CreateAssetMenu(fileName = "AdSdkConfig", menuName = "AdSdk/Configuration")]
-    public class AdSdkConfig : ScriptableObject
+    [CreateAssetMenu(fileName = "EMAdSdkConfig", menuName = "AdSdk/Configuration")]
+    public class EMAdSdkConfig : ScriptableObject
     {
         [SerializeField] private bool _isTestMode;
         [SerializeField] private string _publisherId;
